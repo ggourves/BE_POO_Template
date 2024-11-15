@@ -1,11 +1,11 @@
 // Carte Node MCU 1.0
 
-//#include "Application.h"
+#include "Application.h"
 #include <ESP8266WiFi.h> // Inclure la bibliothèque ESP8266WiFi
 
-//Application myApplication;
+Application myApplication;
 
-const int brocheLED = LED_BUILTIN_AUX; //D4;   // Broche du LED intégré de l'ESP8266 (D4 ou GPIO 2)
+const int brocheLED = LED_BUILTIN_AUX;   // Broche du LED Auxiliaire intégré de l'ESP8266
 const int brocheBOUTON = D7;
 
 // Réseau Wi-Fi
@@ -14,7 +14,6 @@ const int brocheBOUTON = D7;
 
 void setup() 
 {
-  // Configurer la broche du LED comme sortie
   pinMode(brocheLED, OUTPUT);
   pinMode(brocheBOUTON, INPUT);
 
@@ -41,9 +40,7 @@ void setup()
   Serial.print("Adresse IP : ");
   Serial.println(WiFi.localIP());
 
-
-  // put your setup code here, to run once:
-  //myApplication.init();
+  myApplication.init();
 }
 
 void loop() 
@@ -53,6 +50,5 @@ void loop()
   }  else{
     digitalWrite(brocheLED, LOW);
   }
-  // put your main code here, to run repeatedly:
-  //myApplication.run();
+  myApplication.run();
 }
