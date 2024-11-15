@@ -43,8 +43,8 @@ Méthodes : surveillerParametres(), alerter(), afficherSurLCD() pour orchestrer 
 Extrait de Code Exemple
 Voici un exemple de la classe pour le capteur de luminosité (CapteurLuminosite), qui hérite de Capteur.
 
-cpp
-## Copier le code
+
+## Prototype de code
 class Capteur {
 protected:
     int id;
