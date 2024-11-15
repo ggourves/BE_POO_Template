@@ -17,7 +17,7 @@ void setup()
   // Configurer la broche du LED comme sortie
   pinMode(brocheLED, OUTPUT);
   pinMode(brocheBOUTON, INPUT);
-/*
+
   Serial.begin(115200); // Initialiser la communication série pour le débogage
   delay(10);
 
@@ -40,7 +40,7 @@ void setup()
   Serial.println("Connecté au Wi-Fi !");
   Serial.print("Adresse IP : ");
   Serial.println(WiFi.localIP());
-*/
+
 
   // put your setup code here, to run once:
   //myApplication.init();
