@@ -1,0 +1,384 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------------------------
+% Packages
+% ---------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{amsmath}
+
+% ---------------------------
+% Hyperref setup
+% ---------------------------
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  citecolor=black
+}
+
+% ---------------------------
+% Listings setup (C++ / Arduino)
+% ---------------------------
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  tabsize=2,
+  showstringspaces=false
+}
+
+% ---------------------------
+% Header / Footer
+% ---------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{BE POO -- INSA Toulouse}
+\rhead{Projet Danseuse Capybara}
+\cfoot{\thepage}
+
+% ---------------------------
+% Custom commands
+% ---------------------------
+\newcommand{\projet}{Danseuse Capybara}
+
+% Lien GitHub plus petit (pour tenir sur la page)
+\newcommand{\repo}{\begingroup\footnotesize\url{https://github.com/robertoibanezmingarro-lang/BE_POO_Template/tree/feature/dev-roberto}\endgroup}
+
+\begin{document}
+
+% ---------------------------
+% Title page
+% ---------------------------
+\begin{titlepage}
+  \centering
+
+  % Logo INSA (en haut a droite) - fichier a ajouter sur Overleaf : insa_toulouse.png
+  \begin{flushright}
+    \vspace*{-1cm}
+    \includegraphics[width=3.2cm]{insa_toulouse.png}
+  \end{flushright}
+  \vspace*{0.5cm}
+
+  \vspace*{1.0cm}
+
+  {\LARGE \textbf{Bureau d'Études C++ et POO}}\\[0.4cm]
+  {\Large \textbf{Compte rendu et documentation technique}}\\[1.0cm]
+
+  {\huge \textbf{Projet \projet}}\\[0.6cm]
+
+  \vspace{1.2cm}
+
+  \begin{tabular}{rl}
+    \textbf{Établissement :} & INSA Toulouse\\
+    \textbf{Cours :} & C++\\
+    \textbf{Année :} & 2025--2026\\
+    \textbf{Plateforme :} & ESP8266\\
+  \end{tabular}
+
+  \vfill
+
+  \begin{tabular}{ll}
+    \textbf{Auteurs :} &
+    Roberto Ibanez Mingarro\\
+    & Kevin Felipe Visbal Pinzón\\
+  \end{tabular}
+
+  \vspace{1.0cm}
+
+  \textbf{GitHub :} \repo
+
+  \vfill
+  {\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Introduction}
+Ce document constitue le \textbf{compte rendu} et la \textbf{documentation technique} du projet \projet, réalisé dans le cadre du \textbf{BE de Programmation Orientée Objet (POO) à l’INSA Toulouse}.
+
+Le projet met en œuvre un système embarqué interactif basé sur un \textbf{ESP8266} et développé en \textbf{C++ (Arduino)}. L’objectif principal est de structurer un code modulaire et maintenable en appliquant les principes de la POO (abstraction, héritage, composition, encapsulation, polymorphisme) tout en intégrant des capteurs, des actionneurs et une interface WiFi HTTP.
+
+% ============================================================
+\section{Objectifs et périmètre}
+\subsection{Objectifs}
+\begin{itemize}[leftmargin=1.2cm]
+  \item Concevoir une architecture logicielle orientée objet pour un système embarqué.
+  \item Intégrer plusieurs capteurs (présence, lumière, tactile) et actionneurs (servo, buzzer, LED, LCD).
+  \item Fournir une interface de contrôle et de supervision via \textbf{WiFi} et \textbf{HTTP}.
+  \item Documenter l’architecture, les choix techniques et le fonctionnement global.
+\end{itemize}
+
+\subsection{Périmètre fonctionnel}
+Le système :
+\begin{itemize}[leftmargin=1.2cm]
+  \item détecte une présence via un capteur ultrason (seuil : distance $\leq$ 10 cm) ;
+  \item détecte le mode nuit via un capteur de luminosité ;
+  \item déclenche une animation (danse) et des effets (LED / musique / LCD / etc.) selon les conditions ;
+  \item permet de changer de chanson via un bouton tactile et/ou WiFi;
+  \item expose des points d’accès HTTP pour consulter l’état et piloter certaines fonctions.
+\end{itemize}
+
+% ============================================================
+\section{Contexte matériel et logiciel}
+\subsection{Matériel}
+\begin{itemize}[leftmargin=1.2cm]
+  \item Carte : ESP8266
+  \item Capteurs : ultrason, luminosité, bouton tactile
+  \item Actionneurs : servo-moteur, buzzer, LED, écran LCD RGB
+\end{itemize}
+
+\subsection{Environnement de développement}
+\begin{itemize}[leftmargin=1.2cm]
+  \item Arduino IDE 
+  \item Bibliothèques typiques : ESP8266WiFi, serveur HTTP, Servo, LCD
+  \item Langage : C++ (Arduino)
+\end{itemize}
+
+\subsection{Organisation du dépôt}
+La structure du dépôt est organisée de façon modulaire afin de respecter la séparation des responsabilités :
+\vspace{0.5cm}
+\begin{itemize}[leftmargin=1.2cm]
+  \item \texttt{core\_Sensor.h} / \texttt{core\_Actuator.h} : interfaces abstraites
+  \item \texttt{sensors\_*} : implémentations concrètes des capteurs
+  \item \texttt{actuators\_*} : implémentations concrètes des actionneurs
+  \item \texttt{music\_*} : représentation et lecture de chansons
+  \item \texttt{wifi\_*} : service WiFi et API HTTP
+  \item \texttt{app\_*} : logique applicative (orchestration)
+  \item \texttt{*.ino} : point d’entrée Arduino (\texttt{setup}/\texttt{loop})
+\end{itemize}
+
+% ============================================================
+\section{Analyse fonctionnelle}
+\subsection{Cas d'utilisation}
+La figure~\ref{fig:usecase} présente les cas d’utilisation principaux du système.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UML_UseCase.png}
+  \caption{Diagramme de cas d’utilisation (UML) -- Projet \projet}
+  \label{fig:usecase}
+\end{figure}
+
+\subsection{Scénario nominal}
+Un scénario typique est le suivant :
+\begin{enumerate}[leftmargin=1.2cm]
+  \item Initialisation du système : capteurs, actionneurs, WiFi, LCD.
+  \item Boucle principale : acquisition des mesures (distance, luminosité), lecture du bouton tactile.
+  \item Si présence détectée : animation (servo), LED active, musique si autorisée (non muet, non nuit).
+  \item Publication / mise à jour de l’état (LCD et/ou JSON via HTTP).
+  \item Si absence : arrêt des actionneurs et retour à un état stable.
+\end{enumerate}
+
+% ============================================================
+\section{Architecture logicielle (POO)}
+\subsection{Principes de conception}
+Les principes suivants ont guidé l’implémentation :
+\begin{itemize}[leftmargin=1.2cm]
+  \item \textbf{Abstraction} : interfaces communes pour capteurs et actionneurs.
+  \item \textbf{Encapsulation} : chaque classe gère son état et son comportement.
+  \item \textbf{Composition} : l’application agrège les modules et orchestre le système.
+  \item \textbf{Extensibilité} : ajout de capteurs/actionneurs sans modifier la logique globale.
+\end{itemize}
+
+\subsection{Diagramme de classes}
+La figure~\ref{fig:class} illustre l’architecture objet et les relations entre classes.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UML_Clase_Diagram.png}
+  \caption{Diagramme de classes (UML) -- Projet \projet}
+  \label{fig:class}
+\end{figure}
+
+\subsection{Description des modules}
+\subsubsection{Interfaces \texttt{Sensor} et \texttt{Actuator}}
+\begin{itemize}[leftmargin=1.2cm]
+  \item \texttt{Sensor} définit le contrat minimal d’un capteur : initialisation et lecture/actualisation.
+  \item \texttt{Actuator} définit le contrat minimal d’un actionneur : initialisation, activation/désactivation et actions spécifiques.
+\end{itemize}
+
+\subsubsection{Capteurs}
+\begin{itemize}[leftmargin=1.2cm]
+  \item \textbf{Capteur ultrason} : calcule une distance et permet une logique de présence.
+  \item \textbf{Capteur de luminosité} : fournit un indicateur \texttt{isNight} pour contraindre le comportement (ex. silence la nuit).
+  \item \textbf{Bouton tactile} : fournit un événement de changement de chanson.
+\end{itemize}
+
+\subsubsection{Actionneurs}
+\begin{itemize}[leftmargin=1.2cm]
+  \item \textbf{Servo} : animation mécanique (pas de danse / positionnement).
+  \item \textbf{Buzzer} : génération de notes et lecture de mélodies.
+  \item \textbf{LED} : retour visuel d’activité.
+  \item \textbf{LCD} : affichage d’état (lignes de texte, mode, etc.).
+\end{itemize}
+
+\subsubsection{Musique}
+Le module musique encapsule la représentation d’une chanson et la logique d’itération sur les notes (durée, fréquence, etc.). L’exécution peut être conditionnée par un mode \textit{mute} ou par le mode nuit.
+
+\subsubsection{Service WiFi / HTTP}
+Le module WiFi expose une interface HTTP permettant :
+\begin{itemize}[leftmargin=1.2cm]
+  \item \texttt{GET /status} : consultation de l’état du système (JSON).
+  \item \texttt{GET /song?i=} : changement de chanson par index.
+  \item \texttt{GET /mute?on=} : activation/désactivation du mode muet.
+  \item \texttt{GET /lcd?l1\&l2} : mise à jour des deux lignes affichées.
+\end{itemize}
+
+% ============================================================
+\section{Description détaillée du fonctionnement}
+\subsection{Initialisation (\texttt{begin}/\texttt{setup})}
+Lors du démarrage :
+\begin{itemize}[leftmargin=1.2cm]
+  \item configuration des broches et initialisation des capteurs/actionneurs ;
+  \item connexion WiFi et configuration du serveur HTTP ;
+  \item initialisation LCD et affichage d’un état prêt.
+\end{itemize}
+
+\subsection{Boucle principale (\texttt{update}/\texttt{loop})}
+À chaque itération :
+\begin{enumerate}[leftmargin=1.2cm]
+  \item acquisition des mesures (distance, luminosité) ;
+  \item prise en compte d’événements utilisateur (tactile) ;
+  \item décision : danser / arrêter selon la présence ;
+  \item décision audio : jouer si non muet et non nuit ;
+  \item mise à jour de l’affichage et publication de l’état.
+\end{enumerate}
+
+\subsection{Gestion des états et conditions}
+\begin{itemize}[leftmargin=1.2cm]
+  \item \textbf{Présence} : déclenche l’animation.
+  \item \textbf{Absence} : arrêt servo, extinction LED, arrêt buzzer.
+  \item \textbf{Mode nuit} : désactive la musique (ou limite les effets) selon la politique retenue.
+  \item \textbf{Mode muet} : priorité sur la lecture musicale.
+\end{itemize}
+
+% ============================================================
+\section{API HTTP}
+\subsection{Résumé des endpoints}
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}llp{8cm}@{}}
+\toprule
+\textbf{Route} & \textbf{Méthode} & \textbf{Description} \\
+\midrule
+\texttt{/status} & GET & Retourne l’état courant du système (JSON) \\
+\texttt{/song?i=} & GET & Sélectionne une chanson via un index \\
+\texttt{/mute?on=} & GET & Active/désactive le mode muet \\
+\texttt{/lcd?l1\&l2} & GET & Met à jour les lignes LCD (texte) \\
+\bottomrule
+\end{tabular}
+\caption{API HTTP -- Projet \projet}
+\end{table}
+
+\subsection{Exemples de requêtes}
+\begin{lstlisting}[language=bash,caption={Exemples de requêtes HTTP}]
+# Etat du système
+GET http://<ip_esp8266>/status
+
+# Changer de chanson (ex: 2)
+GET http://<ip_esp8266>/song?i=2
+
+# Activer le mode muet
+GET http://<ip_esp8266>/mute?on=1
+
+# Modifier LCD
+GET http://<ip_esp8266>/lcd?l1=Bonjour&l2=Danseuse
+\end{lstlisting}
+
+% ============================================================
+\section{Procédure de compilation et déploiement}
+\subsection{Téléversement sur ESP8266}
+\begin{enumerate}[leftmargin=1.2cm]
+  \item Ouvrir le fichier \texttt{.ino} du projet dans l’IDE Arduino.
+  \item Sélectionner la carte ESP8266 et le port série.
+  \item Vérifier la présence des bibliothèques requises.
+  \item Compiler puis téléverser.
+\end{enumerate}
+
+\subsection{Vérifications}
+\begin{itemize}[leftmargin=1.2cm]
+  \item Vérifier la connexion WiFi et récupérer l’adresse IP affichée (LCD ou moniteur série).
+  \item Tester \texttt{/status} depuis un navigateur ou un outil HTTP.
+  \item Vérifier la réaction à la présence et la cohérence des modes (nuit/muet).
+\end{itemize}
+
+% ============================================================
+\section{Gestion de projet et travail collaboratif (Git)}
+\subsection{Organisation}
+Le projet est versionné avec Git et hébergé sur GitHub. Un flux de travail basé sur des branches a été utilisé :
+\begin{itemize}[leftmargin=1.2cm]
+  \item branche \texttt{main} : version initial du professeur
+  \item branches \texttt{feature/*} : développements et intégrations progressives
+  \item intégration finale via \textit{pull request (non réalisé) }
+\end{itemize}
+
+\subsection{Justification}
+Ce flux permet :
+\begin{itemize}[leftmargin=1.2cm]
+  \item une traçabilité des modifications,
+  \item une meilleure gestion des conflits,
+  \item une intégration contrôlée et revue.
+\end{itemize}
+
+% ============================================================
+\section{Conclusion}
+Le projet \projet met en œuvre une application embarquée complète combinant capteurs, actionneurs et communication réseau, tout en structurant le code selon des principes POO. L’architecture modulaire facilite l’extension (ajout de nouveaux capteurs/actionneurs) et la maintenance.
+
+\bigskip
+\noindent\textbf{Améliorations possibles :}
+\begin{itemize}[leftmargin=1.2cm]
+  \item ajout d’un diagramme de séquence UML (scénario nominal),
+  \item enrichissement de l’état JSON (diagnostic, timestamps),
+  \item gestion plus avancée des états (automate) et des priorités.
+\end{itemize}
+
+% ============================================================
+\appendix
+
+\section{Annexe A -- Captures du projet (PNG)}
+Les figures suivantes illustrent le projet dans son état final. Les fichiers PNG sont fournis dans le dépôt dans un dossier \texttt{demo images/}.  
+
+\vspace{1cm}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{projet_final_1.png}
+  \caption{Vue 1 : montage matériel}
+  \label{fig:class}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{projet_final_2.png}
+  \caption{Vue 2 : montage matériel}
+  \label{fig:class}
+\end{figure}
+
+\vspace{1cm}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{projet_final_3.png}
+  \caption{Vue 3 : montage matériel}
+  \label{fig:class}
+\end{figure}
+
+\end{document}
