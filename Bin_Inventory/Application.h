@@ -3,8 +3,17 @@
  * @author <mettre l'adresse mail ou nom prenom>
  * @brief Fichier header de l'application
  *********************************************************************/
-#ifndef APPLICATION_H_
-#define APPLICATION_H_
+#ifndef APPLICATION_H
+#define APPLICATION_H
+
+#include "Hardware/Grid.h"
+#include "Manager/itemsManager.h"
+#include "Manager/DetectionManager.h"
+#include "Hardware/Capteur.h"
+#include "Hardware/Led.h"
+#include "Hardware/Led.h"
+#include "Hardware/Capteur.h"
+
 
 /**
   * @class Application
@@ -12,6 +21,11 @@
 */    
 class Application
 {
+  private:
+    Grid4x4 grid;
+    itemManager manager;
+    DetectionManager detectionManager;
+
   public :
     /**
      * @fn Application();
