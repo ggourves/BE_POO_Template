@@ -1,17 +1,28 @@
 /*********************************************************************
  * @file  Apllication.h
- * @author <mettre l'adresse mail ou nom prenom>
+ * @author <MELADE Ulrich -- LELE Bernys>
  * @brief Fichier header de l'application
  *********************************************************************/
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
-
+#include "Bombe.hpp"
+#include "Password.hpp"
+#include "Thread.h"
+#include "Timer.hpp"
+#include "Simon.h"
 /**
   * @class Application
   * @brief Classe Application 
 */    
 class Application
 {
+  private:
+    Bomb bomb;  // On déclare la bombe en premier car utilisée par tous les autres
+    Thread ThreadModule;
+    Timer Timer_;
+    Simon SimonModule;
+    Password PasswordModule;
+
   public :
     /**
      * @fn Application();
