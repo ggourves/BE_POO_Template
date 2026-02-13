@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Fichier de test 
+project_name_test/
+.vscode/

@@ -6,7 +6,7 @@
 #include "Application.h"
 
 
-Application::Application()
+Application::Application() 
 {
   // Code
   ; 
@@ -21,12 +21,14 @@ Application::~Application()
 void Application::init(void)
 {
   // Code
-    ;
+  Serial.begin(9600);
+  monJardin = new Jardin();
+  monJardin->init();
 }
 
 
 void Application::run(void)
 {
-  // Code
-    ;
+monJardin->run();
+    
 }

@@ -5,13 +5,15 @@
  *********************************************************************/
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
-
+#include "Jardin.hpp"
 /**
   * @class Application
   * @brief Classe Application 
 */    
 class Application
 {
+  protected : 
+  Jardin *monJardin=nullptr;
   public :
     /**
      * @fn Application();
