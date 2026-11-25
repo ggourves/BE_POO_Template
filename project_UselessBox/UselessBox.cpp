@@ -1,14 +1,10 @@
 /*********************************************************************
  * @file  Apllication.cpp
- * @author <mettre l'adresse mail ou nom prenom>
+ * @author Strom Camilla Saethre Ingrid
  * @brief Fichier source de l'application
  *********************************************************************/
 #include "Application.h"
-//Hallaballa
-//lqsjkjdfhl
 
-
-//TEsssstermi
 
 Application::Application()
 {
@@ -22,7 +18,6 @@ Application::~Application()
   ;
 }  
 
-void Application::init(void)
 {
   // Code
     ;

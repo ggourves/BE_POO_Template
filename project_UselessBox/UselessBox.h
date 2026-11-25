@@ -10,13 +10,14 @@
   * @class Application
   * @brief Classe Application 
 */    
-class Application
+class Box
 {
   public :
     /**
      * @fn Application();
      * @brief Constructeur par defaut
     */    
+    //Constructeur
     Application();
     /**
      * @fn Application();
@@ -33,5 +34,29 @@ class Application
      * @brief Fonction de lancement de l'application
     */
     void run(void);
+  private :
 };
+
+class Capteur : public Box{
+
+	
+	
+}
+
+class Actionneur : public Box {
+
+
+}
+
+class Humeur : public Box {
+
+	
+}
+
+class nbTentatives : public Box {
+
+	
+}
+
+
 #endif
