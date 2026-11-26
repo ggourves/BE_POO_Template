@@ -35,6 +35,10 @@ int main (){
   
   Actionneur cool("Lys Opp Min Verden", PIN_LED);
   cout << cool.getNom() << endl;
+
+  ReactionTest chill("I'm chill");
+  cout << chill.getNom() << endl;
+  chill.jouer();
   return 0;
 }
 

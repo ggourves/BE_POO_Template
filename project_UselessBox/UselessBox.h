@@ -62,7 +62,7 @@ class Capteur{
     //destructeur
 	  virtual ~Capteur() = default;
 
-    //fonction getter
+    //function get
     string getNom() const { return nom; }
 	
 	protected:
@@ -77,7 +77,7 @@ class Actionneur{
     //constructeur
     Actionneur(const string& nom, uint8_t pin) : nom(nom), pin(pin) {};
 
-    //Getters and Setters;
+    //function get;
     string getNom() const { return nom; }
 
     //destructeur
@@ -89,22 +89,28 @@ class Actionneur{
 };
 
 
-/*
-class Humeur : public Box {
-  public:
-  //constructeur
-  Humeur(const string& nom) : nom(nom) {};
-	
 
+class Reaction {
+  public:
+    //constructeur
+    Reaction(const string& nomReaction): nomReaction(nomReaction) {};
+    //destructeur
+    virtual ~Reaction() = default;
+
+    //functions
+    virtual void jouer() = 0;    
+    string getNom() const { return nomReaction; };
 
   protected:
-   string nom;
+    string nomReaction;
 };
 
-class nbTentatives : public Box {
-
-	
-}; */
-
+class ReactionTest : public Reaction {
+  public:
+    ReactionTest(const string& nom) : Reaction(nom) {}
+    void jouer() override {
+      cout << "ReactionTest called on " << getNom() << endl;
+    }
+};
 
 #endif
