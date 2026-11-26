@@ -30,10 +30,11 @@ int main (){
   bitch += 1;
   cout << "NbTentatives: " << bitch.getNbTentatives() << endl;
   
-  Capteur mutton("PingMeButton", PIN_BOUTON);
+  Capteur mutton("Ping Me lol", PIN_BOUTON);
   cout << mutton.getNom() << endl;
   
-
+  Actionneur cool("Lys Opp Min Verden", PIN_LED);
+  cout << cool.getNom() << endl;
   return 0;
 }
 

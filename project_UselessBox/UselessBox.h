@@ -62,8 +62,7 @@ class Capteur{
     //destructeur
 	  virtual ~Capteur() = default;
 
-    //fonctions
-    
+    //fonction getter
     string getNom() const { return nom; }
 	
 	protected:
@@ -72,25 +71,25 @@ class Capteur{
 		
 }; 
 
-/* class Actionneur : public Box {
+class Actionneur{
 
 	public: 
-	//constructeur
-	Actionneur(const string& nom, uint8_t pin) : nom(nom), pin(pin) {};
+    //constructeur
+    Actionneur(const string& nom, uint8_t pin) : nom(nom), pin(pin) {};
 
-	//Getters and Setters;
-	int GetAction(){
-		return 
-	}
+    //Getters and Setters;
+    string getNom() const { return nom; }
 
-	//destructeur
-	virtual ~Actionneur() = default;
+    //destructeur
+    virtual ~Actionneur() = default;
 	protected:
     string nom;
     uint8_t pin;
 		
 };
 
+
+/*
 class Humeur : public Box {
   public:
   //constructeur
