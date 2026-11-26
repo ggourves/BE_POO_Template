@@ -1,31 +1,32 @@
 /*********************************************************************
- * @file  Apllication.cpp
+ * @file  Application.cpp
  * @author Strom Camilla Saethre Ingrid
  * @brief Fichier source de l'application
  *********************************************************************/
-#include "Application.h"
+#include "UselessBox.h"
+#include <iostream>
+#include <string>
+using namespace std;
 
 
-Application::Application()
+void init(void)
 {
-  // Code
-  ; 
-}
-  
-Application::~Application()
-{
-  // Code
-  ;
-}  
-
-{
-  // Code
-    ;
+    
 }
 
+/* void run(void){
 
-void Application::run(void)
-{
-  // Code
-    ;
+} */
+
+
+//TestingTesting 123
+int main (){
+
+  Box bitch;
+
+  cout << "bitch created" << endl;
+  cout << bitch.nbTentatives << endl;
+  init();
+  return 0;
 }
+

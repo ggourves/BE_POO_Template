@@ -1,62 +1,42 @@
 /*********************************************************************
- * @file  Apllication.h
- * @author <mettre l'adresse mail ou nom prenom>
+ * @file  UselessBox.h
+ * @author Saethre Ingrid Strøm Camilla
  * @brief Fichier header de l'application
  *********************************************************************/
-#ifndef APPLICATION_H_
-#define APPLICATION_H_
-
+#ifndef USELESSBOX_H_
+#define USELESSBOX_H_
+using namespace std;
 /**
   * @class Application
   * @brief Classe Application 
 */    
-class Box
-{
+
+
+
+
+class Box{
   public :
-    /**
-     * @fn Application();
-     * @brief Constructeur par defaut
-    */    
-    //Constructeur
-    Application();
-    /**
-     * @fn Application();
-     * @brief Destructeur
-    */    
-    ~Application();    
-    /**
-     * @fn void init(void)
-     * @brief Fonction d'initialisation de l'application
-    */
+    //constructeur
+    Box(void): nbTentatives(0) {};
+    //destructeur
+    virtual ~Box(){};    
+    
+    //fonctions
     void init(void);
-    /**
-     * @fn void run(void)
-     * @brief Fonction de lancement de l'application
-    */
-    void run(void);
-  private :
+    //void run(void);
+
+    //operators
+    Box & operator+=(int increment) {
+      nbTentatives += increment;
+      return *this;
+    };
+
+
+    int getNbTentatives() const { return nbTentatives; }
+    
+    int nbTentatives;
 };
 
-class Capteur : public Box{
-
-	
-	
-}
-
-class Actionneur : public Box {
-
-
-}
-
-class Humeur : public Box {
-
-	
-}
-
-class nbTentatives : public Box {
-
-	
-}
 
 
 #endif
