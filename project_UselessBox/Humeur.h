@@ -1,5 +1,6 @@
 #ifndef HUMEUR_H_
 #define HUMEUR_H_
+#include "UselessBox.h"
 
 class Heureux : class Humeur () {
 
