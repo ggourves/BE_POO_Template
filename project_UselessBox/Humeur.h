@@ -2,25 +2,14 @@
 #define HUMEUR_H_
 #include "UselessBox.h"
 
-class Heureux : class Humeur () {
+class Heureux : class Humeur {};
 
-};
+class Neutre : class Humeur {};
 
-class Neutre : class Humeur () {
+class Ruse : class Humeur {};
 
-};
+class Irrite : class Humeur {};
 
-class Ruse : class Humeur () {
-
-};
-
-class Irrite : class Humeur () {
-
-};
-
-class Furieux : class Humeur () {
-
-};
-
+class Furieux : class Humeur {};
 
 #endif

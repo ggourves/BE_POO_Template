@@ -1,31 +1,43 @@
 /*********************************************************************
- * @file  Apllication.cpp
+ * @file  Application.cpp
  * @author Strom Camilla Saethre Ingrid
  * @brief Fichier source de l'application
  *********************************************************************/
-#include "Application.h"
+#include "UselessBox.h"
+#include <iostream>
+#include <cstdint>
+#include <string>
+using namespace std;
 
 
-Application::Application()
+void init(void)
 {
-  // Code
-  ; 
+    
 }
+
+/* void run(void){
+
+} */
+
+
+//TestingTesting 123
+int main (){
+
+  Box bitch;
+
+  cout << "bitch created" << endl;
+  cout << bitch.getNbTentatives() << endl;
+  bitch += 1;
+  cout << "NbTentatives: " << bitch.getNbTentatives() << endl;
   
-Application::~Application()
-{
-  // Code
-  ;
-}  
+  Capteur mutton("Ping Me lol", PIN_BOUTON);
+  cout << mutton.getNom() << endl;
+  
+  Actionneur cool("Lys Opp Min Verden", PIN_LED);
+  cout << cool.getNom() << endl;
 
-{
-  // Code
-    ;
-}
-
-
-void Application::run(void)
-{
-  // Code
-    ;
+  ReactionTest chill("I'm chill");
+  cout << chill.getNom() << endl;
+  chill.jouer();
+  return 0;
 }
