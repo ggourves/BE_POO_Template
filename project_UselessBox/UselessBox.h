@@ -5,13 +5,24 @@
  *********************************************************************/
 #ifndef USELESSBOX_H_
 #define USELESSBOX_H_
+#include <iostream>
+#include <string>
+#include <cstdint>
 using namespace std;
 /**
   * @class Application
   * @brief Classe Application 
 */    
 
+//enum class Humeur { CALME, AGACEE, FURIEUSE };
 
+//Pins
+static const uint8_t PIN_BOUTON    = 1 ;
+static const uint8_t PIN_ULTRASON  = 2;
+static const uint8_t PIN_LED       = 3;
+static const uint8_t PIN_BUZZER    = 4;
+static const uint8_t PIN_SERVOLID  = 5;
+static const uint8_t PIN_SERVOARM  = 6;
 
 
 class Box{
@@ -28,15 +39,73 @@ class Box{
     //operators
     Box & operator+=(int increment) {
       nbTentatives += increment;
+      //humeur = calculerHumeur();
       return *this;
     };
 
 
     int getNbTentatives() const { return nbTentatives; }
-    
+    //Humeur getHumeur() const { return humeur; } --Enum class
+       
+      
+
+    protected:
+    //Humeur calculerHumeur() const; --Enum class
     int nbTentatives;
 };
 
+class Capteur{
+
+	public: 
+	  //constructer
+	  Capteur(const string& nom, uint8_t pin) : nom(nom), pin(pin) {}
+    //destructeur
+	  virtual ~Capteur() = default;
+
+    //fonctions
+    
+    string getNom() const { return nom; }
+	
+	protected:
+    string nom;
+    uint8_t pin;
+		
+}; 
+
+/* class Actionneur : public Box {
+
+	public: 
+	//constructeur
+	Actionneur(const string& nom, uint8_t pin) : nom(nom), pin(pin) {};
+
+	//Getters and Setters;
+	int GetAction(){
+		return 
+	}
+
+	//destructeur
+	virtual ~Actionneur() = default;
+	protected:
+    string nom;
+    uint8_t pin;
+		
+};
+
+class Humeur : public Box {
+  public:
+  //constructeur
+  Humeur(const string& nom) : nom(nom) {};
+	
+
+
+  protected:
+   string nom;
+};
+
+class nbTentatives : public Box {
+
+	
+}; */
 
 
 #endif
