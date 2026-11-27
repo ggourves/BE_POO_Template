@@ -5,11 +5,11 @@ Application myApplication;
 void setup() 
 {
   // put your setup code here, to run once:
-  myApplication.init();
+  UselessBox.init();
 }
 
 void loop() 
 {
   // put your main code here, to run repeatedly:
-  myApplication.run();
+  UselessBox.run();
 }
